@@ -1,14 +1,11 @@
-import { About } from "@/components/About";
-import { CapabilitiesGrid } from "@/components/CapabilitiesGrid";
 import { CaseStudies } from "@/components/CaseStudies";
-import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 import { Hero } from "@/components/Hero";
 import { Navbar } from "@/components/Navbar";
-import { ProcessTimeline } from "@/components/ProcessTimeline";
-import { ResultsOverview } from "@/components/ResultsOverview";
+import { Process } from "@/components/Process";
+import { SwipeFile } from "@/components/SwipeFile";
+import { Teardown } from "@/components/Teardown";
 import { ToolStack } from "@/components/ToolStack";
-import { WorkSamples } from "@/components/WorkSamples";
 
 export default function Home() {
   return (
@@ -16,14 +13,11 @@ export default function Home() {
       <Navbar />
       <main id="main">
         <Hero />
-        <ResultsOverview />
+        <Process />
         <CaseStudies />
-        <CapabilitiesGrid />
-        <ProcessTimeline />
+        <SwipeFile />
         <ToolStack />
-        <WorkSamples />
-        <About />
-        <Contact />
+        <Teardown />
       </main>
       <Footer buildYear={new Date().getFullYear()} />
     </>

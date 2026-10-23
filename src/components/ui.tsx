@@ -1,5 +1,5 @@
-import { ArrowUpRight, ImagePlus } from "lucide-react";
-import Image from "next/image";
+import { ArrowUpRight } from "lucide-react";
+import type { Metric } from "@/data/portfolio";
 
 /** External link that always opens safely in a new tab and says so to screen readers. */
 export function ExternalLink({
@@ -55,36 +55,38 @@ export function SectionHeader({
   );
 }
 
-/**
- * Shows a real, redacted asset when `src` is set; otherwise a clearly marked placeholder.
- * Never renders simulated screenshots.
- */
-export function EvidenceSlot({
-  title,
-  src,
-  alt,
-  width = 1200,
-  height = 750,
-}: {
-  title: string;
-  src: string;
-  alt: string;
-  width?: number;
-  height?: number;
-}) {
-  if (src) {
-    return (
-      <figure className="overflow-hidden rounded-lg border border-line bg-white">
-        <Image src={src} alt={alt} width={width} height={height} className="h-auto w-full" />
-        <figcaption className="border-t border-line px-4 py-2 text-xs text-muted">{title}</figcaption>
-      </figure>
-    );
-  }
+/** Small uppercase label used for sub-blocks inside sections. */
+export function Label({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
-    <div className="flex aspect-[16/9] flex-col items-center justify-center gap-2 rounded-lg border border-dashed border-slate-300 bg-paper-2/60 p-4 text-center">
-      <ImagePlus aria-hidden="true" className="size-5 text-slate-400" />
-      <p className="text-sm font-medium text-ink">{title}</p>
-      <p className="font-mono text-[11px] tracking-wider text-slate-500 uppercase">Evidence to be added</p>
-    </div>
+    <p className={`font-mono text-[11px] font-medium tracking-[0.14em] text-slate-500 uppercase ${className}`}>
+      {children}
+    </p>
+  );
+}
+
+export function Bullets({ items, className = "" }: { items: string[]; className?: string }) {
+  return (
+    <ul className={`space-y-2.5 ${className}`}>
+      {items.map((item) => (
+        <li key={item} className="relative pl-5 text-[15px] leading-relaxed text-ink">
+          <span aria-hidden="true" className="absolute top-[0.6em] left-0 size-1.5 rounded-full bg-accent" />
+          {item}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+/** A row of large numbers. Render on light backgrounds. */
+export function StatRow({ metrics, className = "" }: { metrics: Metric[]; className?: string }) {
+  return (
+    <dl className={`grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-4 ${className}`}>
+      {metrics.map((m) => (
+        <div key={m.label} className="flex flex-col">
+          <dt className="order-2 mt-1 text-sm leading-snug text-muted">{m.label}</dt>
+          <dd className="order-1 text-3xl font-semibold tracking-tight text-ink tabular-nums">{m.value}</dd>
+        </div>
+      ))}
+    </dl>
   );
 }

@@ -14,27 +14,28 @@ npm run build && npm start
 
 ## Edit content
 
-Everything on the page comes from **`src/data/portfolio.ts`**: profile, links, metrics, case studies,
-capabilities, process, tools, work samples, about copy and timeline. Components never hard code figures.
+Everything on the page comes from **`src/data/portfolio.ts`**: hero metrics, the seven process steps,
+both case studies, the recruitment strategy deep dive, other campaigns, the swipe file, tools and the teardown CTA.
+Components never hard code figures.
+
+Page order: Hero (headshot + metrics) → Process → Case studies → Swipe file → Tool stack → Teardown CTA.
 
 ### Still needed from Jayson
 
 | Item | Where | Behavior until set |
 | --- | --- | --- |
-| Email address | `links.email` | Email button hidden |
 | LinkedIn URL | `links.linkedin` | LinkedIn button hidden |
-| Booking link (Calendly, Cal.com) | `links.booking` | Booking button hidden |
+| Booking link (Calendly, Cal.com) | `links.booking` | Not shown |
 | Production domain | `links.siteUrl` | No canonical tag; OG image URL falls back to the host |
-| Redacted evidence images | `caseStudies[].evidence[].src`, `workSamples[].src` | "Evidence to be added" placeholder |
-| Permission to name Stingray | `caseStudies` → `media-music-company` | Shown as "North American media and music company" |
 
-In `npm run dev`, a dashed note in the Contact section lists unset links. It never renders in production builds.
+The teardown form has no backend: it opens the visitor's email app addressed to `links.email`.
+Tool logos load from Google's favicon service using each tool's `domain`.
 
-### Adding evidence
+### Evidence images
 
-1. Redact client names, prospect data, private domains and mailbox addresses.
-2. Save the image in `public/evidence/`, e.g. `public/evidence/cymate-report.png`.
-3. Set `src: "/evidence/cymate-report.png"`, a descriptive `alt`, and optionally `width` and `height`.
+All screenshots live in `public/evidence/` with anonymized filenames (filenames appear in image URLs).
+Redact client names, prospect data and private domains before adding a new one, then reference it as a
+`Shot` (`src`, `alt`, `caption`, `width`, `height`) in `portfolio.ts`. Every screenshot opens full size on click.
 
 ## Accuracy rules
 
@@ -42,3 +43,4 @@ In `npm run dev`, a dashed note in the Contact section lists unset links. It nev
 - Pipeline is not revenue. Open rates are tracked opens.
 - The Make.com templates were designed by the Cymate team. Jayson configured, implemented and troubleshot them.
 - No testimonials, client logos or simulated screenshots.
+- Swipe file samples that were not sent as-is are labeled "Sample".

@@ -1,6 +1,6 @@
 import { ArrowRight } from "lucide-react";
-import { cymateTotals, heroProof, heroTools, links, profile } from "@/data/portfolio";
-import { ExternalLink } from "./ui";
+import Image from "next/image";
+import { heroInfra, heroMetrics, heroScope, profile } from "@/data/portfolio";
 
 export function Hero() {
   return (
@@ -10,59 +10,71 @@ export function Hero() {
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 opacity-[0.07] [background-image:linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] [background-size:56px_56px] [mask-image:linear-gradient(to_bottom,black,transparent_85%)]"
       />
-      <div className="relative mx-auto grid max-w-6xl gap-12 px-4 pt-16 pb-14 sm:px-6 sm:pt-24 lg:grid-cols-12 lg:gap-10 lg:pb-20">
-        <div className="motion-safe:animate-rise lg:col-span-7">
-          <p className="eyebrow text-accent-bright">{profile.title}</p>
-          <h1
-            id="hero-title"
-            className="mt-5 text-[2.25rem] leading-[1.08] font-semibold tracking-tight text-balance sm:text-5xl lg:text-[3.4rem]"
-          >
-            {profile.heroHeadline}
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-slate-300">{profile.heroCopy}</p>
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <a href="#results" className="btn-primary">
-              Explore Campaign Results
-              <ArrowRight aria-hidden="true" className="size-4" />
-            </a>
-            <ExternalLink href={links.resume} className="btn-outline-dark">
-              View Resume
-            </ExternalLink>
-          </div>
-        </div>
-
-        <div className="motion-safe:animate-rise lg:col-span-5 lg:pt-4 motion-safe:[animation-delay:120ms]">
-          <div className="rounded-xl border border-white/10 bg-white/[0.04] p-6 sm:p-7">
-            <p className="font-mono text-xs tracking-wider text-slate-400 uppercase">
-              Recorded results · {cymateTotals.period}
+      <div className="relative mx-auto max-w-6xl px-4 pt-14 pb-14 sm:px-6 sm:pt-20 lg:pb-20">
+        <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
+          <div className="motion-safe:animate-rise lg:col-span-7">
+            <p className="eyebrow text-accent-bright">
+              {profile.name} · {profile.title}
             </p>
-            <dl className="mt-5 divide-y divide-white/10">
-              {heroProof.map((m) => (
-                <div key={m.label} className="flex items-baseline gap-5 py-4 first:pt-0 last:pb-0">
-                  <dt className="order-2 text-sm leading-snug text-slate-300">
-                    <span className="block font-medium text-white">{m.label}</span>
-                    {m.detail}
-                  </dt>
-                  <dd className="order-1 w-28 shrink-0 text-4xl font-semibold tracking-tight text-white tabular-nums sm:w-32 sm:text-[2.6rem]">
-                    {m.value}
-                  </dd>
-                </div>
-              ))}
-            </dl>
+            <h1
+              id="hero-title"
+              className="mt-5 text-[2.1rem] leading-[1.1] font-semibold tracking-tight text-balance sm:text-5xl lg:text-[3.2rem]"
+            >
+              {profile.heroHeadline}
+            </h1>
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-slate-300">{profile.heroCopy}</p>
+            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+              <a href="#case-studies" className="btn-primary">
+                View Case Studies
+                <ArrowRight aria-hidden="true" className="size-4" />
+              </a>
+              <a href="#teardown" className="btn-outline-dark">
+                Get a Free Sequence Teardown
+              </a>
+            </div>
+          </div>
+
+          <div className="motion-safe:animate-rise lg:col-span-5 motion-safe:[animation-delay:120ms]">
+            <div className="relative mx-auto max-w-sm lg:max-w-none">
+              <div
+                aria-hidden="true"
+                className="absolute -inset-3 rounded-[1.75rem] border border-accent-bright/20 sm:-inset-4"
+              />
+              <Image
+                src={profile.headshot.src}
+                alt={`Portrait of ${profile.name}`}
+                width={profile.headshot.width}
+                height={profile.headshot.height}
+                priority
+                sizes="(min-width: 1024px) 440px, (min-width: 640px) 384px, 90vw"
+                className="relative aspect-[4/5] w-full rounded-2xl object-cover object-[50%_20%] shadow-2xl shadow-black/40"
+              />
+              <div className="absolute -bottom-5 left-4 rounded-xl border border-white/10 bg-navy-900/95 px-4 py-3 shadow-xl backdrop-blur sm:left-6">
+                <p className="font-mono text-[11px] tracking-wider text-accent-bright uppercase">Works with</p>
+                <p className="text-sm font-medium text-white">{profile.workPreference}</p>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="lg:col-span-12">
-          <div className="flex flex-col gap-3 border-t border-white/10 pt-6 sm:flex-row sm:items-center sm:gap-5">
-            <p className="font-mono text-xs tracking-wider text-slate-400 uppercase">Core tools</p>
-            <ul className="flex flex-wrap gap-x-6 gap-y-2" aria-label="Core tools">
-              {heroTools.map((t) => (
-                <li key={t} className="text-sm font-medium text-slate-200">
-                  {t}
-                </li>
-              ))}
-            </ul>
+        <div className="mt-16 rounded-2xl border border-white/10 bg-white/[0.04] p-6 motion-safe:animate-rise sm:p-8 motion-safe:[animation-delay:200ms]">
+          <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
+            <p className="font-mono text-xs tracking-wider text-slate-400 uppercase">Track record · {heroScope}</p>
+            <p className="text-xs text-slate-400">{heroInfra}</p>
           </div>
+          <dl className="mt-6 grid grid-cols-2 gap-x-6 gap-y-7 md:grid-cols-3 lg:grid-cols-5">
+            {heroMetrics.map((m) => (
+              <div key={m.label} className="flex flex-col">
+                <dt className="order-2 mt-1.5 text-sm leading-snug">
+                  <span className="block font-medium text-white">{m.label}</span>
+                  {m.detail && <span className="text-xs text-slate-400">{m.detail}</span>}
+                </dt>
+                <dd className="order-1 text-4xl font-semibold tracking-tight text-white tabular-nums sm:text-5xl">
+                  {m.value}
+                </dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </div>
     </section>

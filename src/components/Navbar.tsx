@@ -40,10 +40,16 @@ export function Navbar() {
         <div className="flex items-center gap-2">
           <ExternalLink
             href={links.resume}
-            className="hidden items-center gap-1.5 rounded-lg border border-white/25 px-3.5 py-2 text-sm font-semibold text-white transition-colors hover:border-white/60 sm:inline-flex"
+            className="hidden items-center gap-1 text-sm text-slate-300 transition-colors hover:text-white lg:inline-flex"
           >
-            View Resume
+            Resume
           </ExternalLink>
+          <a
+            href="#teardown"
+            className="hidden items-center rounded-lg bg-accent px-3.5 py-2 text-sm font-semibold text-white transition-colors hover:bg-accent-strong sm:ml-3 sm:inline-flex"
+          >
+            Free Teardown
+          </a>
           <button
             type="button"
             className="inline-flex size-10 items-center justify-center rounded-lg text-white hover:bg-white/10 md:hidden"
@@ -71,6 +77,15 @@ export function Navbar() {
             </li>
           ))}
           <li className="mt-2 border-t border-white/10 pt-3">
+            <a
+              href="#teardown"
+              onClick={() => setOpen(false)}
+              className="block rounded-md px-2 py-3 text-base font-semibold text-accent-bright hover:bg-white/5"
+            >
+              Free Teardown
+            </a>
+          </li>
+          <li>
             <ExternalLink
               href={links.resume}
               className="flex items-center gap-1.5 rounded-md px-2 py-3 text-base font-semibold text-white hover:bg-white/5"
