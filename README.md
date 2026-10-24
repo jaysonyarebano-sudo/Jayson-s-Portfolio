@@ -24,22 +24,17 @@ Page order: Hero (headshot + metrics) → Process → Case studies → Swipe fil
 
 | Item | Where | Behavior until set |
 | --- | --- | --- |
-| LinkedIn URL | `links.linkedin` | LinkedIn button hidden |
-| Booking link (Calendly, Cal.com) | `links.booking` | Not shown |
 | Production domain | `links.siteUrl` | No canonical tag; OG image URL falls back to the host |
 
-### Strategy preview form → Google Form → Gmail
+### Strategy request form → Google Form
 
-The form in the last section collects offer, target industries, locations and existing infrastructure
-(domains, mailboxes, platform). To have requests land in Gmail:
+The multi-step form in the last section mirrors the Google Form at https://forms.gle/zPUwgASkBZDt2hjn7
+question for question and posts answers straight into it, so they show up in the form's Responses tab
+(turn on "Get email notifications for new responses" there to have each one emailed to you).
 
-1. Open [script.google.com](https://script.google.com), create a new project, and paste in
-   `scripts/google-form-setup.gs`.
-2. Run `setup` and approve the permissions. It creates the Google Form, a responses Sheet, and a
-   trigger that emails each response to jayson.yare.bano@gmail.com (Reply-To is the visitor).
-3. Copy the `googleForm` block from the execution log into `src/data/portfolio.ts`.
+If you change the Google Form, update `strategyForm` in `src/data/portfolio.ts` to match: each question's
+`entry` id, and for multiple-choice and checkbox questions the exact option text.
 
-Until step 3 is done, submitting opens the visitor's email app with every answer filled in.
 Tool logos load from Google's favicon service using each tool's `domain`.
 
 ### Evidence images

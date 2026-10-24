@@ -1,6 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
-import { heroInfra, heroMetrics, heroScope, profile } from "@/data/portfolio";
+import { heroInfra, heroMetrics, heroScope, links, profile } from "@/data/portfolio";
+import { ExternalLink } from "./ui";
 
 export function Hero() {
   return (
@@ -32,6 +33,15 @@ export function Hero() {
                 Get a Free Strategy Preview
               </a>
             </div>
+            {links.booking && (
+              <p className="mt-4 text-sm text-slate-400">
+                Or{" "}
+                <ExternalLink href={links.booking} showIcon={false} className="font-medium text-accent-bright underline-offset-4 hover:underline">
+                  book a 30-minute strategy call
+                </ExternalLink>
+                .
+              </p>
+            )}
           </div>
 
           <div className="motion-safe:animate-rise lg:col-span-5 motion-safe:[animation-delay:120ms]">
