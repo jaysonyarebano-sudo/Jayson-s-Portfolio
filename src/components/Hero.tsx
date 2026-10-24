@@ -29,7 +29,7 @@ export function Hero() {
                 <ArrowRight aria-hidden="true" className="size-4" />
               </a>
               <a href="#teardown" className="btn-outline-dark">
-                Get a Free Sequence Teardown
+                Get a Free Strategy Preview
               </a>
             </div>
           </div>

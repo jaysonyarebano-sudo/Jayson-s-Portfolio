@@ -644,11 +644,20 @@ export const moreCampaigns: Campaign[] = [
   },
   {
     client: "TCC Junk Removal · freelance",
-    what: "Cold email in Instantly for a U.S. junk removal company.",
+    what: "Cold email in Instantly for a U.S. junk removal company, Dec 15 to May 30.",
     metrics: [
+      { value: "46.6K", label: "Emails sent" },
+      { value: "1.85%", label: "Reply rate" },
       { value: "60", label: "Opportunities" },
       { value: "71.5%", label: "Open rate (tracked)" },
     ],
+    shot: {
+      src: "/evidence/tcc-junk-removal-analytics.png",
+      alt: "Instantly analytics from December 15 to May 30: 46.6K emails sent, 71.5% open rate, 0% click rate, 1.85% reply rate, 60 opportunities.",
+      caption: "TCC Junk Removal in Instantly, Dec 15 to May 30. Open rate shown is tracked opens.",
+      width: 932,
+      height: 430,
+    },
   },
 ];
 
@@ -859,7 +868,40 @@ export const toolGroups: { category: string; tools: Tool[] }[] = [
 /* ------------------------------------------------------------------ */
 
 export const teardownCopy = {
-  eyebrow: "Free teardown",
-  headline: "Want a free 5-minute teardown of your current cold email sequence?",
-  body: "Drop your email below and paste your first email if you have it handy. I'll reply with what I'd change in the targeting, subject line, opener and CTA. No call needed.",
+  eyebrow: "Free strategy preview",
+  headline: "Want a free outbound strategy built for your market?",
+  body: "Tell me who you sell to and what you're sending from. I'll reply with a short proposal built the same way as the recruitment agency strategy above, so you see exactly how I'd work for you before we ever talk.",
+  deliverables: [
+    "Two or three target segments, ranked, with the signal that qualifies each one",
+    "A market size count: companies that fit, and how many have a reason to hear from you now",
+    "An infrastructure plan: domains, inboxes and daily volume sized to that market",
+    "A first email written for your top segment, plus a teardown of your current one if you share it",
+  ],
+};
+
+/** Keys shared by the website form and scripts/google-form-setup.gs. */
+export type StrategyField =
+  | "email"
+  | "name"
+  | "website"
+  | "offer"
+  | "industries"
+  | "locations"
+  | "hasInfra"
+  | "domains"
+  | "mailboxes"
+  | "platform"
+  | "currentEmail";
+
+/** Choice values must match the Google Form exactly, or Google drops the answer. */
+export const infraChoices = ["Yes", "No", "Not sure"] as const;
+export const platformChoices = ["Smartlead", "Instantly", "EmailBison", "Lemlist", "Apollo", "Other", "None yet"] as const;
+
+/**
+ * Where strategy requests go. Run scripts/google-form-setup.gs once (see README), then paste the
+ * `action` URL and `entries` ids it logs here. Until then the form falls back to the visitor's email app.
+ */
+export const googleForm: { action: string; entries: Partial<Record<StrategyField, string>> } = {
+  action: "",
+  entries: {},
 };

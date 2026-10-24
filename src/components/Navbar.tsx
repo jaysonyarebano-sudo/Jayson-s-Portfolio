@@ -4,9 +4,24 @@ import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { links, navItems, profile } from "@/data/portfolio";
 import { ExternalLink } from "./ui";
+import { useActiveSection } from "./useActiveSection";
+
+const sectionIds = ["top", ...navItems.map((i) => i.href.slice(1)), "teardown"];
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const active = useActiveSection(sectionIds);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      setProgress(max > 0 ? Math.min(1, window.scrollY / max) : 0);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -30,7 +45,15 @@ export function Navbar() {
         <ul className="hidden items-center gap-7 md:flex">
           {navItems.map((item) => (
             <li key={item.href}>
-              <a href={item.href} className="text-sm text-slate-300 transition-colors hover:text-white">
+              <a
+                href={item.href}
+                aria-current={active === item.href.slice(1) ? "location" : undefined}
+                className={`relative py-5 text-sm transition-colors after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:rounded-full after:transition-colors ${
+                  active === item.href.slice(1)
+                    ? "font-medium text-white after:bg-accent-bright"
+                    : "text-slate-300 after:bg-transparent hover:text-white"
+                }`}
+              >
                 {item.label}
               </a>
             </li>
@@ -48,7 +71,7 @@ export function Navbar() {
             href="#teardown"
             className="hidden items-center rounded-lg bg-accent px-3.5 py-2 text-sm font-semibold text-white transition-colors hover:bg-accent-strong sm:ml-3 sm:inline-flex"
           >
-            Free Teardown
+            Free Strategy Preview
           </a>
           <button
             type="button"
@@ -62,6 +85,10 @@ export function Navbar() {
           </button>
         </div>
       </nav>
+      {/* Reading progress along the bottom edge of the header. */}
+      <div aria-hidden="true" className="absolute inset-x-0 -bottom-px h-0.5 bg-transparent">
+        <div className="h-full origin-left bg-accent-bright" style={{ transform: `scaleX(${progress})` }} />
+      </div>
 
       <div id="mobile-menu" hidden={!open} className="border-t border-white/10 md:hidden">
         <ul className="mx-auto max-w-6xl px-4 py-3">
@@ -70,7 +97,10 @@ export function Navbar() {
               <a
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="block rounded-md px-2 py-3 text-base text-slate-200 hover:bg-white/5 hover:text-white"
+                aria-current={active === item.href.slice(1) ? "location" : undefined}
+                className={`block rounded-md px-2 py-3 text-base hover:bg-white/5 hover:text-white ${
+                  active === item.href.slice(1) ? "bg-white/5 font-medium text-white" : "text-slate-200"
+                }`}
               >
                 {item.label}
               </a>
@@ -82,7 +112,7 @@ export function Navbar() {
               onClick={() => setOpen(false)}
               className="block rounded-md px-2 py-3 text-base font-semibold text-accent-bright hover:bg-white/5"
             >
-              Free Teardown
+              Free Strategy Preview
             </a>
           </li>
           <li>

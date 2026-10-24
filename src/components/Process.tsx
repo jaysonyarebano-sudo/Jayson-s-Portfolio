@@ -1,4 +1,5 @@
 import { processIntro, processSteps, type ProcessStep } from "@/data/portfolio";
+import { ProcessNav } from "./ProcessNav";
 import { Screenshot } from "./Screenshot";
 import { Bullets, Label, SectionHeader, StatRow } from "./ui";
 
@@ -68,23 +69,9 @@ export function Process() {
         />
 
         <div className="mt-14 grid gap-12 lg:grid-cols-12 lg:gap-10">
-          <nav aria-label="Process steps" className="hidden lg:col-span-3 lg:block">
-            <ol className="sticky top-24 space-y-1 border-l border-line">
-              {processSteps.map((step, i) => (
-                <li key={step.id}>
-                  <a
-                    href={`#step-${step.id}`}
-                    className="-ml-px flex gap-3 border-l-2 border-transparent py-1.5 pl-4 text-sm text-muted transition-colors hover:border-accent hover:text-ink"
-                  >
-                    <span className="font-mono text-xs text-slate-400">{String(i + 1).padStart(2, "0")}</span>
-                    {step.title}
-                  </a>
-                </li>
-              ))}
-            </ol>
-          </nav>
+          <ProcessNav steps={processSteps.map(({ id, title }) => ({ id, title }))} />
 
-          <ol className="space-y-16 lg:col-span-9 lg:space-y-20">
+          <ol className="-mt-6 space-y-16 lg:col-span-9 lg:mt-0 lg:space-y-20">
             {processSteps.map((step, i) => (
               <li key={step.id}>
                 <article id={`step-${step.id}`} aria-labelledby={`step-${step.id}-title`} className="scroll-mt-24">
