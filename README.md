@@ -26,14 +26,10 @@ Page order: Hero (headshot + metrics) → Process → Case studies → Swipe fil
 | --- | --- | --- |
 | Production domain | `links.siteUrl` | No canonical tag; OG image URL falls back to the host |
 
-### Strategy request form → Google Form
+### Strategy request form
 
-The multi-step form in the last section mirrors the Google Form at https://forms.gle/zPUwgASkBZDt2hjn7
-question for question and posts answers straight into it, so they show up in the form's Responses tab
-(turn on "Get email notifications for new responses" there to have each one emailed to you).
-
-If you change the Google Form, update `strategyForm` in `src/data/portfolio.ts` to match: each question's
-`entry` id, and for multiple-choice and checkbox questions the exact option text.
+The closing section links to the Google Form at `links.strategyForm`. Responses and email alerts are
+managed in the form itself (Responses tab → "Get email notifications for new responses").
 
 Tool logos load from Google's favicon service using each tool's `domain`.
 

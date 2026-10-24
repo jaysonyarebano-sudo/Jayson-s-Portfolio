@@ -39,6 +39,8 @@ export const links = {
   email: "jayson.yare.bano@gmail.com",
   /** e.g. "https://www.linkedin.com/in/your-handle" */
   linkedin: "https://www.linkedin.com/in/jayson-bano-962007229/",
+  /** Google Form for strategy requests. Responses (and email alerts) are managed in the form itself. */
+  strategyForm: "https://forms.gle/zPUwgASkBZDt2hjn7",
   /** e.g. a Calendly or Cal.com URL */
   booking: "https://cal.com/jayson-bano-strategy-call/30min",
   /** Production URL, e.g. "https://jaysonbano.com". Enables canonical + absolute OG URLs. */
@@ -870,7 +872,7 @@ export const toolGroups: { category: string; tools: Tool[] }[] = [
 export const teardownCopy = {
   eyebrow: "Free strategy preview",
   headline: "Want a free outbound strategy built for your market?",
-  body: "Tell me who you sell to, who you want to reach, and what you're sending from today. I'll reply with a short proposal built the same way as the recruitment agency strategy above, so you see exactly how I'd work for you before we ever talk.",
+  body: "Answer a short form about who you sell to, who you want to reach, and what you're sending from today. I'll reply with a proposal built the same way as the recruitment agency strategy above, so you see exactly how I'd work for you before we ever talk.",
   deliverables: [
     "Two or three target segments, ranked, with the signal that qualifies each one",
     "A market size count: companies that fit, and how many have a reason to hear from you now",
@@ -878,188 +880,3 @@ export const teardownCopy = {
     "A first email written for your top segment, annotated like the swipe file",
   ],
 };
-
-/* ------------------------------------------------------------------ */
-/* Strategy request form, mirrored from the Google Form                */
-/* ------------------------------------------------------------------ */
-
-/**
- * The website form posts straight to this Google Form, so every field below must match it:
- * the entry id, and for choices the exact option text (Google drops answers it doesn't recognize).
- * If you edit the Google Form, update this list to match. Form: https://forms.gle/zPUwgASkBZDt2hjn7
- */
-export const googleFormAction =
-  "https://docs.google.com/forms/d/e/1FAIpQLSfeKUgRQ43jYIPFMgQUCRRJl2SzuhT8z6LNFxggoUaie5EHWw/formResponse";
-
-export type FormField = {
-  key: string;
-  /** Google Form entry id, e.g. "entry.123". */
-  entry: string;
-  label: string;
-  kind: "text" | "email" | "url" | "textarea" | "checkboxes" | "radio" | "pills";
-  required?: boolean;
-  hint?: string;
-  placeholder?: string;
-  /** Choices for checkboxes, radio and pills. Pills send the chosen text to a short-answer question. */
-  choices?: readonly string[];
-  /** The Google question has an "Other" option with its own text box. */
-  other?: boolean;
-  /** Only shown when this other field holds one of these values. */
-  showWhen?: { key: string; anyOf: readonly string[] };
-};
-
-export type FormStep = { title: string; intro?: string; fields: FormField[] };
-
-export const strategyForm: FormStep[] = [
-  {
-    title: "About you",
-    fields: [
-      { key: "name", entry: "entry.1015283638", label: "Full name", kind: "text", required: true },
-      { key: "email", entry: "entry.1779874623", label: "Work email", kind: "email", required: true, placeholder: "you@company.com" },
-      { key: "company", entry: "entry.1576611559", label: "Company name", kind: "text", required: true },
-      { key: "website", entry: "entry.1619671888", label: "Company website", kind: "url", required: true, placeholder: "yourcompany.com" },
-      { key: "role", entry: "entry.27239947", label: "Your role", kind: "text", placeholder: "e.g. Founder, Head of Sales" },
-    ],
-  },
-  {
-    title: "Your offer",
-    fields: [
-      { key: "offer", entry: "entry.415077320", label: "What do you sell, and what problem does it solve?", kind: "textarea", required: true },
-      { key: "bestCustomer", entry: "entry.1018821293", label: "Describe your best customer today", kind: "textarea", required: true },
-      {
-        key: "proof",
-        entry: "entry.1021172227",
-        label: "What proof do you have?",
-        kind: "checkboxes",
-        required: true,
-        choices: ["Case study", "Testimonials", "Results with numbers", "None yet"],
-        other: true,
-      },
-    ],
-  },
-  {
-    title: "Who you want to reach",
-    fields: [
-      {
-        key: "industries",
-        entry: "entry.411386396",
-        label: "Industries you want to target",
-        kind: "textarea",
-        required: true,
-        placeholder: "e.g. law and accounting firms, dental practices, Shopify brands",
-      },
-      {
-        key: "companySize",
-        entry: "entry.280944647",
-        label: "Company size (employees)",
-        kind: "checkboxes",
-        required: true,
-        choices: ["1 to 10", "11 to 50", "51 to 100", "101 to 200", "201 to 500", "501 to 1000", "1001 to 2000"],
-        other: true,
-      },
-      {
-        key: "locations",
-        entry: "entry.2120137203",
-        label: "Locations",
-        kind: "checkboxes",
-        required: true,
-        choices: ["United States", "Canada", "United Kingdom", "Australia"],
-        other: true,
-      },
-      {
-        key: "signal",
-        entry: "entry.1651759921",
-        label: "Any buying signal you want to try in the outreach?",
-        kind: "textarea",
-        hint: "For example: hiring, new funding, opening a location.",
-      },
-    ],
-  },
-  {
-    title: "Rules and limits",
-    intro: "So nothing goes out that you'd need to walk back.",
-    fields: [
-      {
-        key: "neverSay",
-        entry: "entry.1970694241",
-        label: "Anything we should never say in emails?",
-        kind: "textarea",
-        hint: "Prices, timelines, claims, words to avoid.",
-      },
-      {
-        key: "exclude",
-        entry: "entry.587392044",
-        label: "Companies to exclude?",
-        kind: "textarea",
-        hint: "Current clients, competitors, partners.",
-      },
-    ],
-  },
-  {
-    title: "Your current outbound",
-    fields: [
-      {
-        key: "running",
-        entry: "entry.1431223781",
-        label: "Are you running cold email now?",
-        kind: "radio",
-        required: true,
-        choices: ["Yes", "No", "Tried before", "Stopped"],
-      },
-      {
-        key: "tools",
-        entry: "entry.830529928",
-        label: "Tools you use",
-        kind: "checkboxes",
-        choices: ["Smartlead", "Instantly", "Apollo", "Clay", "GoHighLevel", "HubSpot", "None"],
-        other: true,
-      },
-      {
-        key: "infrastructure",
-        entry: "entry.1237711607",
-        label: "How many sending domains and inboxes do you have?",
-        kind: "text",
-        placeholder: "e.g. 10 domains, 30 inboxes",
-        showWhen: { key: "running", anyOf: ["Yes", "Tried before", "Stopped"] },
-      },
-      {
-        key: "currentResults",
-        entry: "entry.1574912913",
-        label: "Current results, if any",
-        kind: "textarea",
-        hint: "Emails a month, reply rate, meetings booked.",
-        showWhen: { key: "running", anyOf: ["Yes", "Tried before", "Stopped"] },
-      },
-      {
-        key: "meetingsGoal",
-        entry: "entry.2022478298",
-        label: "How many qualified meetings a month would make outbound worth it for you?",
-        kind: "text",
-        required: true,
-        placeholder: "e.g. 8",
-      },
-    ],
-  },
-  {
-    title: "Last details",
-    fields: [
-      {
-        key: "start",
-        entry: "entry.80416918",
-        label: "When are you hoping to start?",
-        kind: "pills",
-        required: true,
-        choices: ["This month", "In 1 to 3 months", "Just exploring"],
-      },
-      { key: "anythingElse", entry: "entry.1544069466", label: "Anything else I should know?", kind: "textarea" },
-      {
-        key: "consent",
-        entry: "entry.347726236",
-        label: "I agree that my answers can be used to prepare my strategy",
-        kind: "checkboxes",
-        required: true,
-        choices: ["Yes"],
-      },
-    ],
-  },
-];
